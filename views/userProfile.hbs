@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {
+      height: 550px
+    }
+
+    /* Set gray background color and 100% height */
+    .sidenav {
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+
+    /* On small screens, set height to 'auto' for the grid */
+    @media screen and (max-width: 767px) {
+      .row.content {
+        height: auto;
+      }
+    }
+        body {
+            counter-reset: Serial;
+        }
+
+        tr td:first-child:before {
+            counter-increment: Serial;
+            content: counter(Serial);
+        }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="container-fluid">
+    <div class="row content">
+      <div class="col-sm-3 sidenav hidden-xs">
+        <h1>Cửa Hàng quần áo</h1>
+        <ul class="nav nav-pills nav-stacked">
+          <li><a href="/dashboard">Dashboard</a></li>
+          <li class="active"><a href="/userProfile">Users Profile</a></li>
+          <li><a href="/tableList">Table List</a></li>
+          <li><a href="#section3">Map</a></li>
+        </ul><br>
+      </div>
+      <br>
+
+      <div class="col-sm-9">
+        <div class="well">
+          <h4>Danh sách người dùng</h4>
+          <form class="col-11" method="get" action="filter">
+            <div class="row">
+              <div class="col-5">
+                <input name="username" type="text" class="form-control" placeholder="Tên người dùng"
+                  aria-label="First name">
+              </div>
+            </div>
+          </form>
+          <form action="addUs" method="get">
+            <button type="submit">Thêm Người Dùng</button>
+          </form>
+          <div class="content table-responsive table-full-width">
+            <table class="table table-hover">
+              <thead>
+                <th scope="col">STT</th>
+                <th scope="col">Email</th>
+                <th scope="col">Họ và tên</th>
+                <th scope="col">Ảnh đại diện</th>
+                <th scope="col">Quyền</th>
+              </thead>
+              <tbody>
+                {{#each userData}}
+                <tr>
+                  <td></td>
+                  <td>{{email}}</td>
+                  <td>{{name}}</td>
+                  <td>
+                    <div class="row-2">
+                      <div class="col">
+                        <img src="https://img5.thuthuatphanmem.vn/uploads/2021/07/16/anh-cay-xanh-co-don_093245160.jpg" width="50" height="50" alt="">
+                      </div>
+                      {{!-- <div class="col">
+                        <form method="post" action="changeImg">
+                          <input class="btn btn-primary collapse mt-4" value={{_id}}>
+                          <button>Đổi ảnh</button>
+                        </form>
+                      </div> --}}
+                    </div>
+                  </td>
+                  {{#if isAdmin}}
+                    <td>Admin</td>
+                  {{else}}
+                    <td>Người dùng</td>
+                  {{/if}}                  
+                  <td class="modal-footer">
+                    <form method="get" action="editUs">
+                      <button name="idEdit" value={{_id}} class="btn btn-primary mb-2" type="submit">Sửa</button>
+                    </form>
+                    <form method="get" action="deleteUs">
+                      <button name="idUs" value={{_id}} class="btn btn-primary" type="submit"
+                        onclick="return confirm('Bạn có chắc chắn muốn xóa nhân viên này?')">Xóa</button>
+                    </form>
+                  </td>
+                </tr>
+                {{/each}}
+              </tbody>
+
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
