@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
  const mongoose = require('mongoose');
  const path = require('path');
 
-const port = 3000;
+const port = 8000;
 const multer = require('multer');
 const jwt = require('jsonwebtoken')
 const session = require('express-session');
@@ -215,7 +215,7 @@ app.get('/addNewPr', (req, res) => {
     res.render('addPr');
   });
 
-  app.post('/addNewPr/done',async (req, res) => {
+  app.post('/addNewPrF',async (req, res) => {
     await mongoose.connect(uri);
       console.log('Ket noi DB thanh cong');
       const {name,price,color,typePr,idKh}  = req.body;
