@@ -125,7 +125,7 @@ app.get('/edit', async (req, res) => {
         console.log(error);
     }   
 })
-    app.get('/updatePr/done', async (req, res) => {
+    app.get('/updatePrF', async (req, res) => {
         let name = req.query.name
         let price= req.query.price
         let color = req.query.color
